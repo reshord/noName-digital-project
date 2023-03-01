@@ -1,0 +1,176 @@
+.aboutUs {
+    width: 90vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 35px;
+    
+}
+
+.aboutKafeInfo {
+    background-image: url('../../images/about-us/Rectangle\ 2.png');
+    background-size: auto;
+    padding: 60px;
+    max-width: 350px;
+}
+
+.aboutKafeInfo p {
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.5;
+    line-height: 25px;
+    word-wrap: break-word;
+}
+
+.aboutKafeBlocks {
+    display: flex;
+    width: 500px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    height: 500px;
+}
+
+.aboutKafeBlocks div {
+    color: white;
+    font-size: 18px;
+    background-image: url('../../images/about-us/Rectangle\ 7.2.png');
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 180px;
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.aboutKafeBlocks div:hover {
+    color: #79B282;
+}
+
+.aboutImg {
+    width: 70px;
+    height: 60px;
+    padding: 45px 0px 20px 0px;
+}
+
+
+
+.title {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.btn {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 15.83px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 17px 20px 17px 45px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: #79B282;;
+    
+}
+
+@media (max-width: 940px) {
+    .aboutUs {
+        width: 80%;
+        margin-bottom: 50px;
+    }
+    .aboutKafeBlocks {
+        margin-top: 0;
+        margin-left: 40px;
+    }
+}
+@media (max-width: 880px) {
+    .aboutUs {
+    }
+}
+@media (max-width: 836px) {
+    .aboutKafeBlocks div {
+        width: 100px;
+    }
+    .aboutKafeBlocks {
+        display: none;
+    }
+}
+@media (max-width: 672px) {
+    .aboutKafeBlocks div {
+        width: 170px;
+    }
+}
+
+@media (max-width: 580px) {
+    .aboutKafeBlocks {
+        display: none;
+    }
+}
+@media (max-width: 553px) {
+
+}
+@media (max-width: 485px) {
+    .aboutKafeInfo {
+    }
+}
+@media (max-width: 460px) {
+    .contacts {
+        width: 400px;
+    }
+}
+
+@media (max-width: 425px) {
+}
+
+@media (max-width: 410px) {
+}
+
+@media (max-width: 395px) {
+    .aboutUs {
+    }
+    .aboutKafeInfo {
+    }
+}
+@media (max-width: 388px) {
+    .aboutUs {
+    }
+    
+}
+
+@media (max-width: 378px) {
+    .aboutUs {
+        background-image: none;
+        display: block;
+        width: 370px;
+        left: 0;
+
+    }
+    .gps {
+        width: 376px;
+    }
+    .aboutImg {
+        width: 40px;
+        height: 40px;
+    }
+    .aboutKafeBlocks div {
+        width: 80px;
+        height: 80px;
+    }
+    .aboutKafeBlocks {
+        display: none;
+    }
+    .aboutKafeInfo {
+    }
+    .aboutKafeInfo span {
+        font-size: 20px;
+    }
+}

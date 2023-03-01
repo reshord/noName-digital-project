@@ -1,0 +1,45 @@
+.authModal {
+    width: 100%;
+    height: 100%;
+}
+
+.authModalBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeAuthModal {
+    font-size: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.authModalContent {
+    background: linear-gradient(90deg, #494544 0%, #504B4A 100%);
+    width: 458px;
+    height: 150px;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    position: fixed;
+    z-index: 5;
+    top: 240px;
+    -webkit-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 6px 5px 0px rgba(0,0,0,0.75);
+} 
+
+.infoAuthModal {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.toAuthPage {
+    text-decoration: underline;
+}

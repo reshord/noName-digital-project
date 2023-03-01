@@ -1,0 +1,65 @@
+.App {
+    background-color: #403C3B;
+    margin: 0;
+    font-family: 'Noto Sans Mono', monospace;
+
+}
+.body {
+    background: linear-gradient(360deg, #211F20 0%, #44403F 100%);
+    overflow-x: hidden;
+}
+
+.arrowTop {
+    width: 65px;
+    z-index: 6;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+.arrowBlock {
+}
+
+.arrowTop:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 1001px) {
+    .arrowTop {
+        width: 50px;
+    }
+}
+@media (max-width: 501px) {
+    .arrowTop {
+        width: 45px;
+    }
+}
+
+@media (max-width: 410px) {
+    .arrowTop{
+        width: 35px;
+    }
+}
+
+@media (max-width: 376px) {
+    body {
+        width: 376px;
+    }
+    .arrowTop {
+        width: 35px;
+    }
+    .App {
+        width: 376px;
+    }
+}
+
+/* @media (max-width: 577px) {
+    body {
+        width: 100%;
+    }
+    .App {
+        width: 615px;
+    }
+} */
+
