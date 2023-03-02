@@ -8,6 +8,7 @@ import store, { RootState } from "../../../redux/store";
 import { updatePriceProd } from "../../../redux/slices/productsCart";
 import { Link } from "react-router-dom";
 import { openAuthModal } from "../../../redux/slices/auth";
+import allProducts, { setCurrentProd } from "../../../redux/slices/allProducts";
 
 
 const Card: React.FC<CardInfo> = ({id, image, title, count, description, weight, price, popular}) => {
@@ -18,7 +19,6 @@ const Card: React.FC<CardInfo> = ({id, image, title, count, description, weight,
     const [totalCount, setTotalCount] = useState<number>(count)
     
     const pricePlus = () => {
-
         setTotalCount(totalCount + 1)
         setTotalPrice(price * (totalCount + 1))
         dispatch(updatePriceProd({id, totalCount: totalCount + 1}))
@@ -44,6 +44,11 @@ const Card: React.FC<CardInfo> = ({id, image, title, count, description, weight,
     const addToCart = (data: CardInfo) => {
         dispatch(pushArr(data))
         dispatch(productInCart(data.id))
+        
+    }
+
+    const toCardInfo = (data: CardInfo) => {
+        dispatch(setCurrentProd(data))
     }
 
     useEffect(() => {
@@ -63,7 +68,7 @@ const Card: React.FC<CardInfo> = ({id, image, title, count, description, weight,
                     {totalCount}
                  </div>
             )}
-            <Link to={`/infoProduct/${id}`}>
+            <Link to={`/infoProduct/${id}`} onClick={() => toCardInfo({id, image, title, count, description, weight, price, popular})}>
             <div className={styles.cardImage}>
                 {image ? <img src={image} alt="" /> : <div>Загрузка...</div>}
             </div>

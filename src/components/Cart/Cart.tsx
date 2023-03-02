@@ -6,15 +6,15 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import store, { RootState } from "../../redux/store";
 import CartProd from "./CartProd";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
 import Arrow from '../../images/header-image/Arrow.png'
+import CompletedOrderModal from "../modals/CompletedOrderModal";
+import { toggleCompletedOrder } from "../../redux/slices/productsCart";
 
 const Cart: React.FC = () => {
-    const dispatch = useAppDispatch()
     const {addProdToCart, auth} = useAppSelector<RootState>(store.getState)
     const {productsCart, prodInCart} = addProdToCart
-    const {isAuth, data} = auth
-    const navigate = useNavigate()
+
+    const dispatch = useAppDispatch()
 
     const summProd = productsCart.reduce((acc, cur) => {
         return acc + cur.price * cur.count
@@ -25,14 +25,11 @@ const Cart: React.FC = () => {
     }, 0)
     
     const showAllProducts = () => {
-        console.log(JSON.stringify(productsCart))
+        dispatch(toggleCompletedOrder())
     }
 
 
     useEffect(() => {
-        // if(productsCart.length < 1) {
-        //      navigate('/')
-        // }
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -43,6 +40,9 @@ const Cart: React.FC = () => {
     return (
         <div className={styles.cartPage}>
             <Header />
+            {addProdToCart.completedOrderModal && (
+                <CompletedOrderModal />
+            )}
 
             {productsCart.length > 0 ? (
                 <div className="cartWrapper">
@@ -71,12 +71,6 @@ const Cart: React.FC = () => {
                         <p>Минимальная сумма заказа 500 ₽</p>
                     </div>
                     <div className={styles.order}>
-                        {/* <Link to={'/delivery'}>
-                            <button onClick={showAllProducts} 
-                                     className={styles.orderBtn}>
-                                        Оформить заказ
-                            </button>
-                        </Link> */}
                         <button onClick={showAllProducts} 
                                      className={styles.orderBtn}>
                                         Оформить заказ

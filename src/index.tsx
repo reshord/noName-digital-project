@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,11 +6,10 @@ import store, { RootState } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import Cart from './components/Cart/Cart';
-import DeliveryPage from './components/Delivery/DeliveryPage';
 import ProdInfo from './components/ProdInfo/ProdInfo';
 import AuthModal from './components/auth/AuthPage';
 import './styles/index.css'
-import { useAppSelector } from './redux/hooks';
+import ProfileUser from './components/Profile/Profile';
 
 
 var rootStyle = document.querySelector('body') as HTMLElement
@@ -35,7 +33,7 @@ root.render(
           <Route path='/auth' element={<AuthModal />}/>
           <Route path='/cart' element={<Cart />} />
           <Route path='/infoProduct/:id' element={<ProdInfo />}/>
-          <Route path='/delivery' element={<DeliveryPage />} />
+          <Route path='/profile' element={<ProfileUser />} />
         </Routes>
       </Provider>
     </BrowserRouter>

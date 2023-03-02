@@ -71,8 +71,14 @@ const Header = () => {
                     <img className={styles.cartMediaImg} src={cartMedia} alt="" />
                     <span>Корзина</span>
                 </div>}
-
             <div className={styles.blockCartAuth}>
+                <div className={styles.myProfile}>
+                    {auth.isAuth ? (
+                        <Link to={'/profile'}>Мой кабинет</Link>
+                    ) : (
+                        <Link to={'/auth'}>Мой кабинет</Link>
+                    )}
+                </div>
                 <div className={styles.auth}>
                     <img className={styles.authImg} src={Profile} alt="" />
                     {auth.isAuth 
@@ -85,6 +91,7 @@ const Header = () => {
                                 <span className={styles.cartCounter}>{allCountProd}</span>
                             </div>
                         </Link>
+
             </div>
         </div>
     )

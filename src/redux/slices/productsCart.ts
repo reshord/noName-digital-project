@@ -9,6 +9,7 @@ interface initialStateType {
     prodId: null
     message: null | string
     prodAdvice: CardInfo[]
+    completedOrderModal: boolean
 }
 
 const initialState: initialStateType = {
@@ -18,7 +19,8 @@ const initialState: initialStateType = {
     prodInCart: [],
     prodId: null,
     message: null,
-    prodAdvice: []
+    prodAdvice: [],
+    completedOrderModal: false
 }
 
 const addProdToCart = createSlice({
@@ -56,6 +58,9 @@ const addProdToCart = createSlice({
         },
         cartProdAdvice: (state, action: PayloadAction<CardInfo[]>) => {
             state.prodAdvice = action.payload
+        },
+        toggleCompletedOrder: (state) => {
+            state.completedOrderModal = !state.completedOrderModal
         }
     }
 })
@@ -65,6 +70,7 @@ export const { pushArr,
               cartModal, 
               productInCart, 
               updatePriceProd, 
-              cartProdAdvice } = addProdToCart.actions
+              cartProdAdvice,
+              toggleCompletedOrder } = addProdToCart.actions
 
 export default addProdToCart.reducer

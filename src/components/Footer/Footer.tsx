@@ -9,7 +9,7 @@ const Footer = () => {
                 <ScrollTopButton />
             </div>
             <div className={styles.infoFooterBlock}>
-                <div className={styles.titleLogo}>LOGOS</div>
+                <div className={styles.titleLogo}>SHOP</div>
                 <span>
                 © ООО СК «АПШЕРОН»<br /> Все права защищены. 2010-2020
                 </span>

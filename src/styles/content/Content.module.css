@@ -320,7 +320,8 @@ form {
     height: 90px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-
+    position: sticky;
+    top: 90px;
     z-index: 2;
     margin-bottom: 30px;
     background: #403C3B;
@@ -331,6 +332,11 @@ form {
 .filterScrollSection {
     display: flex;
     width: 100%;
+}
+
+.filterScrollSection span:first-child {
+    opacity: 0.6;
+    cursor: default;
 }
 
 .filterScrollSection span {

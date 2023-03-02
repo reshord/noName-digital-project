@@ -1,75 +1,65 @@
-import React, {useEffect, useState} from "react";
-import { CardInfo, ReviewsTypes } from "../../types/types";
+import React, {useEffect} from "react";
+import { CardInfo } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import store, { RootState } from "../../redux/store";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../header/Header";
-import HeaderContent from "../content/HeaderContent";
 import Footer from "../Footer/Footer";
-import { pushArr } from "../../redux/slices/productsCart";
+import { productInCart, pushArr } from "../../redux/slices/productsCart";
 import styles from '../../styles/ProdInfo/prodInfo.module.css'
-import cart from '../../images/Cart.png'
-// import { getComments,  } from "../../axios";
-import {addCommentToList} from "../../redux/slices/addComment";
-import ScrollTopButton from "../ScrollTop";
-
+import AuthModal from "../modals/AuthModal";
+import { openAuthModal } from "../../redux/slices/auth";
 
 const ProdInfo: React.FC = () => {
-    const params = useParams()
-    const {allProducts, auth, comments} = useAppSelector<RootState>(store.getState)
-    const [product, setProduct] = useState<CardInfo>()
-    const [reviews, setReviews] = useState<ReviewsTypes[]>([])
-    const [value, setValue] = useState<string>('')
+    const {allProducts, auth} = useAppSelector<RootState>(store.getState)
 
-    const {isAuth} = auth
-    
-    const {success, AllComments} = comments
-    
-    
     const dispatch = useAppDispatch()
-    const addToCart = () => {
-        // dispatch(pushArr(product))
+    const navigate = useNavigate()
+
+    const addToCart = (data: CardInfo | null) => {
+        if(data) {
+            dispatch(pushArr(data))
+            dispatch(productInCart(data.id))
+        }
+        return
     }
 
-    const addComment = (body: any) => {
-        const email = auth.data?.email
-        if(isAuth && body !== '') {
-            dispatch(addCommentToList({email, body}))
-        }
-        setValue('')
+    const openAuthModalClick = () => {
+        dispatch(openAuthModal(true))
     }
 
     useEffect(() => {
-        // allProducts.products.map(el => {
-        //     if(Number(params.id) === el.id) {
-        //         setProduct(el)
-        //     }
-        // })
-        // axios.get(`https://jsonplaceholder.typicode.com/post/${params.id}/comments`).then(res => setReviews(res.data))
-        // dispatch(getComments(params))
-    }, [product]);
-
-   
+        if(!allProducts.currentInfoProd) navigate('/')
+    }, [allProducts.currentInfoProd]);
 
     return (
         <>
         <Header />
+            {auth.authModal && (
+                <AuthModal />
+            )}
         <div className={styles.prodInfo}>
             <div className="prodInfoImage">
-                <img className={styles.prodImg} src={product?.image} alt="" />
+                <img className={styles.prodImg} src={allProducts.currentInfoProd?.image} alt="" />
             </div>
             <div className={styles.blockInfo}>
                     <div className={styles.prodInfoHeader}>
-                        <span className={styles.title}>{product?.title}</span>
-                        <span className={styles.description}>{product?.description}</span>
+                        <span className={styles.title}>{allProducts.currentInfoProd?.title}</span>
+                        <span className={styles.description}>{allProducts.currentInfoProd?.description}</span>
                     </div>
                     <div className={styles.prodInfoFooter}>
-                        <span className={styles.weight}>Вес: {product?.weight} г</span>
+                        <span className={styles.weight}>Вес: {allProducts.currentInfoProd?.weight} г</span>
                         <div className={styles.prodInfoPrice}>
-                            <button className={styles.btn}>
-                                В корзину
-                            </button>
-                            <span className={styles.price}>{product?.price} ₽</span>
+                                {auth.isAuth ? (
+                                    <button onClick={() => addToCart(allProducts.currentInfoProd)} className={styles.btn}>
+                                        В корзину
+                                    </button>
+                                ) : (
+                                    <button onClick={openAuthModalClick} className={styles.btn}>
+                                        В корзину
+                                    </button>
+                                )}
+                            <span className={styles.price}>{allProducts.currentInfoProd?.price} ₽</span>
                         </div>
                         <div>
 
@@ -77,28 +67,6 @@ const ProdInfo: React.FC = () => {
                     </div>
             </div>
         </div>
-        {success && 
-            <div className={styles.reviews}>
-            <p>Отзывы</p>
-            <div className={styles.someReviews}>
-                {AllComments?.map(el => 
-                    <div key={el.id} className={styles.block}>
-                        <div className={styles.commentatorname}>{el.email}</div>
-                        <div className={styles.commentBody}>{el.body}</div>
-                    </div>
-                )}
-            </div>
-            <div className={styles.addReview}>
-                <input value={value} 
-                       type="text" 
-                       placeholder="Добавить отзыв..."
-                       onChange={e => setValue(e.target.value)}/>
-                <button onClick={() => addComment(value)} disabled={isAuth ? false : true} className={styles.addReviewBtn}>
-                    Добавить
-                </button>
-            </div>
-        </div>
-        }
         <Footer />
        </>
     )

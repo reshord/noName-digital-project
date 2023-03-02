@@ -1,0 +1,41 @@
+.profileBody {
+    background: #403C3B;
+    width: 100%;
+    height: 100vh;
+}
+
+.profileContent {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.profileInfoUser img {
+    border-radius: 10px;
+
+}
+
+.profileInfoUser {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.userInfo span {
+    margin-top: 10px;
+}
+
+.profileContentTitle {
+    color: white;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 20px;
+}

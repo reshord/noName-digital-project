@@ -29,14 +29,19 @@ export interface orderProd {
 export interface FieldValues {
     name?: string
     email?: string
-    password?: string | number
-    confirmPassword?: string | number,
+    password?: string
 }
 
 export interface IGoogleAuthUser {
     displayName: string | null
     email: string | null
-    
+    profileImg: string | null
+}
+
+export interface IDefaultAuthUser {
+    displayName: string | null
+    email: string | null
+    profileImg: string | null
 }
 
 export interface ReviewsTypes {

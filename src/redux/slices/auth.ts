@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FieldValues, IGoogleAuthUser } from "../../types/types";
+import { FieldValues, IDefaultAuthUser, IGoogleAuthUser } from "../../types/types";
 // import {authLogin, authRegister, logout} from '../../axios'
 
 
@@ -7,6 +7,7 @@ type AuthType = {
     isAuth: boolean
     data: null | FieldValues
     dataWithGoogleAuth: IGoogleAuthUser | null
+    dataWithDefaultAuth: IDefaultAuthUser | null
     status: string
     register: boolean
     login: boolean
@@ -24,6 +25,7 @@ const initialState: AuthType = {
     logout: false,
     type: '',
     dataWithGoogleAuth: null,
+    dataWithDefaultAuth: null,
     authModal: false
 }
 
@@ -35,6 +37,10 @@ const Auth = createSlice({
             state.dataWithGoogleAuth = action.payload
             state.isAuth = true
         },
+        setDefaultAuthUser: (state, action) => {
+            state.dataWithDefaultAuth = action.payload
+            state.isAuth = true
+        },
         openAuthModal: (state, action: PayloadAction<boolean>) => {
           state.authModal = action.payload 
         },
@@ -44,7 +50,7 @@ const Auth = createSlice({
         logoutGoogleAuthUser: (state) => {
             state.isAuth = false
             state.dataWithGoogleAuth = null
-        } 
+        }
     },
 })
 
@@ -52,6 +58,7 @@ export const {
     setGoogleAuthUser,
     openAuthModal,
     closeAuthModal,
-    logoutGoogleAuthUser
+    logoutGoogleAuthUser,
+    setDefaultAuthUser
 } = Auth.actions
 export default Auth.reducer

@@ -14,7 +14,17 @@
 .blockCartAuth {
     display: flex;
     justify-content: space-between;
-    width: 400px;
+    align-items: center;
+    width: 550px;
+}
+
+.myProfile a {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.myProfile a:hover {
+    opacity: 0.6;
 }
 
 .logoName {

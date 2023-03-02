@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from '../../styles/content/Content.module.css'
 import Header from "../header/Header";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FieldValues, IGoogleAuthUser, PayloadData } from "../../types/types";
+import { FieldValues, IDefaultAuthUser, IGoogleAuthUser, PayloadData } from "../../types/types";
 // import {authLogin, authRegister} from '../../axios'
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import store, { RootState } from "../../redux/store";
@@ -10,11 +10,11 @@ import { useNavigate } from "react-router-dom";
 import hideAndShowValue from '../../images/header-image/hideValue.png'
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {app, googleAuthProvider} from '../fairbase'
-import { setGoogleAuthUser } from "../../redux/slices/auth";
+import { setDefaultAuthUser, setGoogleAuthUser } from "../../redux/slices/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 const AuthModal: React.FC = () => {
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     const auth = getAuth(app)
     const [googleUser, setGoogleUser] = useState(auth.currentUser)
@@ -29,63 +29,8 @@ const AuthModal: React.FC = () => {
     ]
     const [authSide, setAuthSide] = useState<number>(0)
     const [showPaasword, hidePassword] = useState<boolean>(false)
-    const [showAccepPassword, hideAcceptPassword] = useState<boolean>(false)
     const [showLoginPassword, hideLoginPassword] = useState<boolean>(false)
     
-
-    const onsubmitLogin: SubmitHandler<FieldValues> = async ({email, password}) => {
-        // const {payload}: any = await dispatch(authLogin({email, password}))        
-        // if(payload.token) {
-        //     localStorage.setItem('token', payload.token)
-        //     navigate('/')
-        //     reset()
-        // }
-        // else {
-        //     alert('Не удалось авторизоваться')
-        //     reset()
-        // }
-        
-    }
-
-    const showPasswordValue = () => {
-        hidePassword(!showPaasword)
-    }
-    const showAcceptPasswordValue = () => {
-        hideAcceptPassword(!showAccepPassword)
-    }
-    const showLoginPasswordValue = () => {
-        hideLoginPassword(!showLoginPassword)
-    }
-
-    const onsubmitRegister: SubmitHandler<FieldValues> = async ({email, password, confirmPassword}) => {
-        if(confirmPassword === password) {
-            // await dispatch(authRegister({email, password, confirmPassword}))
-            reset()
-        }
-        return
-    }
-
-    const authWithGoogle = () => {
-        const res = auth.onAuthStateChanged(user => {
-            if(user) {
-                setGoogleUser(user)
-            }
-            signInWithPopup(auth, googleAuthProvider)
-                .then(credentials => {
-                    setGoogleUser(credentials.user)
-                    let newUser: IGoogleAuthUser = {
-                        displayName: credentials.user.displayName,
-                        email: credentials.user.email,
-                    }
-                    dispatch(setGoogleAuthUser(newUser))
-                })
-                .catch(e => console.error(e))
-        })
-        return res
-    }
-
-    useEffect(() => {
-    }, [googleUser]);
 
     const {
         handleSubmit,
@@ -97,6 +42,73 @@ const AuthModal: React.FC = () => {
     } = useForm({
         mode: 'onBlur'
     })
+
+    const showPasswordValue = () => {
+        hidePassword(!showPaasword)
+    }
+
+    const showLoginPasswordValue = () => {
+        hideLoginPassword(!showLoginPassword)
+    }
+
+    const onsubmitLogin: SubmitHandler<FieldValues> = ({email, password}) => {
+        const auth = getAuth()
+        if(email && password) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then(credentials => {
+                    let newUser: IDefaultAuthUser = {
+                        displayName: credentials.user.displayName,
+                        email: credentials.user.email,
+                        profileImg: credentials.user.photoURL
+                    }
+                    dispatch(setDefaultAuthUser(newUser))
+                })
+                .catch(console.error)
+        }
+    }
+
+    const onsubmitRegister: SubmitHandler<FieldValues> = async ({email, password}) => {
+        const auth = getAuth()
+        if(email && password) {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(credentials => {
+                    let newUser: IGoogleAuthUser = {
+                        displayName: credentials.user.displayName,
+                        email: credentials.user.email,
+                        profileImg: credentials.user.photoURL
+                    }
+                    reset()
+                    dispatch(setDefaultAuthUser(newUser))
+                })
+                .catch(console.error)
+        }
+        return
+    }
+
+    const authWithGoogle = () => {
+        const res = auth.onAuthStateChanged(user => {
+            if(user) {
+                setGoogleUser(user)
+            }
+            signInWithPopup(auth, googleAuthProvider)
+                .then(credentials => {
+                    let newUser: IGoogleAuthUser = {
+                        displayName: credentials.user.displayName,
+                        email: credentials.user.email,
+                        profileImg: credentials.user.photoURL
+                    }
+                    reset()
+                    dispatch(setGoogleAuthUser(newUser))
+                })
+                .catch(e => console.error(e))
+        })
+        return res
+    }
+
+    useEffect(() => {
+    }, [googleUser]);
+
+    
 
 
     return (
@@ -118,7 +130,7 @@ const AuthModal: React.FC = () => {
                                 pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,12}/
                             })} className={styles.email} 
                                 type="text" 
-                                placeholder="Ваше имя"/>
+                                placeholder="example@gmail.com"/>
                             {errors?.email && <div className={styles.someError}>{`${errors?.email.message}`}</div>}
                             <input {...register('password', {
                                 required: 'Вы не ввели пароль',
@@ -163,13 +175,13 @@ const AuthModal: React.FC = () => {
                                     <img onClick={() => showPasswordValue()} className={styles.showValue} src={hideAndShowValue} alt="" />
                                     {errors?.password && <div className={styles.someError}>{`${errors?.password.message}`}</div>}
 
-                                <input {...register('confirmPassword', {
+                                {/* <input {...register('confirmPassword', {
                                         required: 'Нужно подтвердить пароль',
                             })} className="password" 
                                     type={`${showAccepPassword ? 'text' : 'password'}`}
                                     placeholder="Confirm password"/>
                                     <img onClick={() => showAcceptPasswordValue()} className={styles.showValue} src={hideAndShowValue} alt="" />
-                                {errors?.confirmPassword && <div className={styles.someError}>{`${errors?.confirmPassword.message}`}</div>}
+                                {errors?.confirmPassword && <div className={styles.someError}>{`${errors?.confirmPassword.message}`}</div>} */}
 
                                  <button className={styles.authBtn}>Регистрация</button>
                                 </form>

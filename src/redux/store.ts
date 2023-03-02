@@ -2,14 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import addProdToCart from "./slices/productsCart";
 import auth from "./slices/auth";
 import allProducts from "./slices/allProducts";
-import comments from "./slices/addComment";
 
 const store = configureStore({
     reducer: {
         addProdToCart,
         auth,
         allProducts,
-        comments,
     }
 })
 
