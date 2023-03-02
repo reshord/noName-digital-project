@@ -1,4 +1,3 @@
-import React from "react";
 import styles from '../../styles/footer/footer.module.css'
 import ScrollTopButton from "../ScrollTop";
 

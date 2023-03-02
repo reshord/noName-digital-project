@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FieldValues, IDefaultAuthUser, IGoogleAuthUser } from "../../types/types";
-// import {authLogin, authRegister, logout} from '../../axios'
 
 
 type AuthType = {

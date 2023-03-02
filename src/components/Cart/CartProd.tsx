@@ -22,9 +22,6 @@ const CartProd:React.FC<CartProdTypes> = ({image, title, description, count, pri
     const {addProdToCart} = useAppSelector<RootState>(store.getState)
     const [countProd, setCountProd] = useState<number>(count)
     const [totalPrice, setTotalPrice] = useState<number>(price)
-    const {isLoading} = addProdToCart
-
-    
 
     const deleteProduct = (id: number) => {
         dispatch(deleteProdCart(id))

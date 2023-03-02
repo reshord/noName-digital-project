@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import styles from '../../styles/content/Content.module.css'
 import Header from "../header/Header";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FieldValues, IDefaultAuthUser, IGoogleAuthUser, PayloadData } from "../../types/types";
-// import {authLogin, authRegister} from '../../axios'
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import store, { RootState } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
+import { FieldValues, IDefaultAuthUser, IGoogleAuthUser } from "../../types/types";
+import { useAppDispatch } from "../../redux/hooks";
 import hideAndShowValue from '../../images/header-image/hideValue.png'
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
+import {getAuth, signInWithPopup} from 'firebase/auth'
 import {app, googleAuthProvider} from '../fairbase'
 import { setDefaultAuthUser, setGoogleAuthUser } from "../../redux/slices/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -19,10 +16,6 @@ const AuthModal: React.FC = () => {
     const auth = getAuth(app)
     const [googleUser, setGoogleUser] = useState(auth.currentUser)
     
-    // const {addProdToCart, auth} = useAppSelector<RootState>(store.getState)
-
-    // const {isAuth} = auth
-
     const authBlock = [
         'Вход',
         'Регистрация'
@@ -114,8 +107,6 @@ const AuthModal: React.FC = () => {
     return (
         <>
         <Header />
-        {/* <NotificationProdvider /> */}
-
         <div className={styles.authModal}>
 
                 {authSide === 0 
@@ -174,14 +165,6 @@ const AuthModal: React.FC = () => {
                                     placeholder="Password"/>
                                     <img onClick={() => showPasswordValue()} className={styles.showValue} src={hideAndShowValue} alt="" />
                                     {errors?.password && <div className={styles.someError}>{`${errors?.password.message}`}</div>}
-
-                                {/* <input {...register('confirmPassword', {
-                                        required: 'Нужно подтвердить пароль',
-                            })} className="password" 
-                                    type={`${showAccepPassword ? 'text' : 'password'}`}
-                                    placeholder="Confirm password"/>
-                                    <img onClick={() => showAcceptPasswordValue()} className={styles.showValue} src={hideAndShowValue} alt="" />
-                                {errors?.confirmPassword && <div className={styles.someError}>{`${errors?.confirmPassword.message}`}</div>} */}
 
                                  <button className={styles.authBtn}>Регистрация</button>
                                 </form>

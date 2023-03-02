@@ -3,8 +3,7 @@ import Banner from './components/Ad/ad-banner';
 import Content from './components/content/Content';
 import styles from './styles/App.module.css'
 import Footer from './components/Footer/Footer';
-import { useEffect, useRef } from 'react';
-import ScrollTopButton from './components/ScrollTop';
+import { useRef } from 'react';
 
 function App() {
 

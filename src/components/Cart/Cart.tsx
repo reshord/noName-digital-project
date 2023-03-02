@@ -11,7 +11,7 @@ import CompletedOrderModal from "../modals/CompletedOrderModal";
 import { toggleCompletedOrder } from "../../redux/slices/productsCart";
 
 const Cart: React.FC = () => {
-    const {addProdToCart, auth} = useAppSelector<RootState>(store.getState)
+    const {addProdToCart} = useAppSelector<RootState>(store.getState)
     const {productsCart, prodInCart} = addProdToCart
 
     const dispatch = useAppDispatch()

@@ -1,4 +1,3 @@
-import Footer from "../Footer/Footer";
 import Header from "../header/Header";
 import styles from '../../styles/profile/profile.module.css'
 import { useAppSelector } from "../../redux/hooks";

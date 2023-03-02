@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CardInfo } from "../../types/types";
-// import {addProducts} from '../../axios'
 
 interface initialStateProducts {
     products: {

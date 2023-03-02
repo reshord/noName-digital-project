@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from '../../../styles/content/Content.module.css'
-import buy from '../../../images/cards/Buy.png'
 import { CardInfo } from "../../../types/types";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import { pushArr, productInCart, deleteProdCart } from "../../../redux/slices/productsCart";
@@ -8,13 +7,13 @@ import store, { RootState } from "../../../redux/store";
 import { updatePriceProd } from "../../../redux/slices/productsCart";
 import { Link } from "react-router-dom";
 import { openAuthModal } from "../../../redux/slices/auth";
-import allProducts, { setCurrentProd } from "../../../redux/slices/allProducts";
+import { setCurrentProd } from "../../../redux/slices/allProducts";
 
 
 const Card: React.FC<CardInfo> = ({id, image, title, count, description, weight, price, popular}) => {
     const dispatch = useAppDispatch()
     const {addProdToCart, auth} = useAppSelector<RootState>(store.getState)
-    const {productsCart, isLoading, cartOpen, prodInCart, prodId } = addProdToCart
+    const {productsCart, prodInCart } = addProdToCart
     const [totalPrice, setTotalPrice] = useState<number>(price)
     const [totalCount, setTotalCount] = useState<number>(count)
     

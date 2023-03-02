@@ -1,12 +1,10 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import store, { RootState } from "../../redux/store";
+import { useAppDispatch } from "../../redux/hooks";
 import style from '../../styles/header/cartModal.module.css'
 import closeModal from '../../images/header-image/closeModal.png'
 import cartEmpty from '../../images/header-image/cartEmpty.png'
 import { cartModal } from "../../redux/slices/productsCart";
 import { useNavigate } from "react-router-dom";
-import { ArrowFunction } from "typescript";
 
 const CartModal: React.FC = () => {
     const dispatch = useAppDispatch()
